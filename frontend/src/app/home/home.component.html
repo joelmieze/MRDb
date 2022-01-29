@@ -1,0 +1,54 @@
+<section class="hero is-black is-fullheight has-background">
+    <div class="hero-head">
+        <div class="container">
+            <app-navbar></app-navbar>
+        </div>
+    </div>
+    <img alt="Fill Murray" class="hero-background is-transparent" src="assets/img/movies.jpg" />
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <img src="assets/img/mrdb-logo.png" class="mb-2" width="150" alt="Logo">
+            <p class="title">
+                Movie Rating Database
+            </p>
+            <p class="subtitle mb-0 has-text-primary mb-2">
+                Get instant ratings for your Movies and TV shows from most popular plateforms !
+            </p>
+            <div class="platforms is-flex is-justify-content-center is-align-items-center my-4">
+                <figure class="image is-flex is-align-items-center mx-2">
+                    <img src="assets/img/imdb.png" alt="IMDb">
+                </figure>
+                <figure class="image is-flex is-align-items-center mx-2">
+                    <img class="is-flex is-vcentered" src="assets/img/rottentomatoes.png" alt="Rotten Tomatoes">
+                </figure>
+                <figure class="image is-flex is-align-items-center mx-2">
+                    <img src="assets/img/metacritic.png" alt="Metacritic">
+                </figure>
+            </div>
+            <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm.value)">
+                <div class="columns is-flex is-justify-content-center">
+                    <div class="column is-half-desktop">
+                        <div class="field has-addons">
+                            <div class="control has-icons-left is-expanded is-fullwidth">
+                                <input class="input is-size-5 is-size-6-mobile" type="text"
+                                    placeholder="Find a Movie or a TV Show (ex: Avengers)" name="search" ngModel
+                                    required>
+                                <span class="icon is-size-5 is-size-6-mobile is-left">
+                                    <fa-icon [icon]="faSearch"></fa-icon>
+                                </span>
+                            </div>
+                            <div class="control">
+                                <button type="submit" id="search_btn" class="is-size-5 is-size-6-mobile button is-info">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                        <p *ngIf=" formerror != undefined " class="has-text-warning">
+                            <fa-icon [icon]="faInfoCircle"></fa-icon> {{ formerror }}
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

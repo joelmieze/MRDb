@@ -1,0 +1,17 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div *ngIf="router.url != '/'" class="navbar-brand">
+        <a class="navbar-item" routerLink="/">
+            <img src="assets/img/mrdb-logo.png" alt="Logo MRDb">
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <a target="_blank" class="has-text-warning" title="Github repository"
+                    href="https://github.com/joelmieze/MRDb">
+                    <fa-icon [icon]="faGithub"></fa-icon>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

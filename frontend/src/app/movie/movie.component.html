@@ -1,0 +1,206 @@
+<section *ngIf="!isLoaded" class="section hero is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">
+        <progress class="progress is-small is-primary" max="100">50%</progress>
+      </p>
+      <p class="subtitle">
+        Loading ...
+      </p>
+    </div>
+  </div>
+</section>
+<section *ngIf="isLoaded" class="hero">
+  <div class="hero-head">
+    <div class="container">
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title has-text-light">{{ movie[0].title }}</p>
+      <p class="subtitle has-text-primary">{{ movie[0].year }}</p>
+    </div>
+  </div>
+</section>
+<section *ngIf="isLoaded" class="blog-posts mb-5">
+  <div class="container">
+    <div class="columns m-0">
+      <div class="column is-10 is-offset-1">
+        <div class="columns featured-post is-multiline">
+          <div class="column is-12 post">
+            <article class="columns featured">
+              <div class="column is-6 featured-content va has-text-right has-text-centered-mobile">
+                <div *ngIf="movie[0].poster == 'N/A'; else poster">
+                  <img src="assets/img/noimg.png" alt="{{ movie[0].title }}">
+                </div>
+                <ng-template #poster><img src="{{ movie[0].poster }}" alt="{{ movie[0].title }}"></ng-template>
+              </div>
+              <div class="column is-6 post-img has-text-left mt-5">
+                <div class="columns is-mobile">
+                  <div class="column is-flex-mobile is-justify-content-center">
+                    <p class="is-size-5 has-text-weight-medium is-vertical-center">
+                      <span class="has-text-light">{{ movie[0].imdbRating
+                        }}</span>/10
+                      <img class="ml-3" src="assets/img/imdb.png" alt="IMDb" width="60">
+                    </p>
+                  </div>
+                </div>
+                <div class="columns is-mobile">
+                  <div class="column is-flex-mobile is-justify-content-center">
+                    <p class="is-size-5 has-text-weight-medium is-vertical-center">
+                      <span *ngIf="hasRating(movie[0].rottenTomatoes);else na">
+                        <span class="has-text-light">{{ formatRating(movie[0].rottenTomatoes) }}</span>/10
+                      </span>
+                      <ng-template #na>N/A</ng-template>
+                      <img class="ml-3" src="assets/img/rottentomatoes.png" alt="Rotten Tomatoes" width="100">
+                    </p>
+                  </div>
+                </div>
+                <div class="columns is-mobile">
+                  <div class="column is-flex-mobile is-justify-content-center">
+                    <p class="is-size-5 has-text-weight-medium is-vertical-center">
+                      <span *ngIf="hasRating(movie[0].metacritic);else na">
+                        <span class="has-text-light">{{ formatRating(movie[0].metacritic) }}</span>/10
+                      </span>
+                      <ng-template #na>N/A</ng-template>
+                      <img class="ml-3" src="assets/img/metacritic.png" alt="Metacritic" width="120">
+                    </p>
+                  </div>
+                </div>
+                <div
+                  *ngIf="hasRating(movie[0].imdbRating) && hasRating(movie[0].rottenTomatoes) && hasRating(movie[0].metacritic)"
+                  class="columns">
+                  <div id="average" class="column is-flex is-align-items-center is-justify-content-left mt-4 mr-4">
+                    <div is="circular-progress-bar"
+                      style="--progress: {{ getAverage(movie[0].imdbRating,movie[0].rottenTomatoes,movie[0].metacritic) }}"
+                      data-label="Average"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <p class="is-size-3 has-text-light has-text-centered-mobile">Movie Information</p><br>
+            <div class="movie-info mb-5 has-text-centered-mobile">
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Title</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].title }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Rated</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].rated }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Year</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].year }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Released</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].released }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Runtime</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].runtime }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Type</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].type }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Genre</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].genre }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Director</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].director }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Writer</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].writer }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Actors</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].actors }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Plot</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].plot }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Country</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].country }}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="columns">
+                <div class="column is-2">
+                  <p class="has-text-grey-lighter has-text-weight-medium">Awards</p>
+                </div>
+                <div class="column is-10">
+                  <p class="has-text-grey-light p-3">{{ movie[0].awards }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

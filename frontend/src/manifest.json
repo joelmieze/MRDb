@@ -1,0 +1,25 @@
+{
+    "short_name": "MRDB",
+    "name": "Movie Rating Database",
+    "icons": [
+        {
+            "src": "/assets/img/icons-128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "/assets/img/icons-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/assets/img/icons-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/index.html",
+    "background_color": "#000000",
+    "display": "fullscreen",
+    "theme_color": "#000000"
+}
